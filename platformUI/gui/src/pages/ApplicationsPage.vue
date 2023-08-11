@@ -80,7 +80,7 @@
                       align="left"
                       class="text-lowercase"
                       :label="`${currentWebApp.hostName}:${currentWebApp.httpsPort}`"
-                      :href="`https://${currentWebApp.hostName}:${currentWebApp.httpPort}`"
+                      :href="`https://${currentWebApp.hostName}:${currentWebApp.httpsPort}`"
                       :target="domain"
                     />
                   </q-item-section>

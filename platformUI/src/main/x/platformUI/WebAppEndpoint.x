@@ -157,49 +157,12 @@ service WebAppEndpoint() {
 
 
     SimpleResponse toSimpleResponse (WebAppOperationResult result, String message) {
-        @Inject Console console;
-        console.print ($"Result: {result}");
-        console.print ($"Message: {message}");
-
-        /*
-         * This is not working and I have no idea why!
-         * No matter what `result` is, it always goes to `default`
-         */
-//        switch (result) {
-//            case OK:
-//                console.print (" --- OK");
-//                return new SimpleResponse(OK);
-//            case NotFound:
-//                console.print (" --- NotFound");
-//                return new SimpleResponse(NotFound, Null, message.utf8());
-//            case Conflict:
-//                console.print (" --- Conflict");
-//                return new SimpleResponse(Conflict, Null, message.utf8());
-//            case Error:
-//                console.print (" --- Error");
-//                return new SimpleResponse(InternalServerError, Null, message.utf8());
-//            default :
-//                console.print (" --- default");
-//                return new SimpleResponse(InternalServerError, Null, message.utf8());
-//        }
-
-        if (result == OK) {
-            console.print (" --- OK");
-            return new SimpleResponse(OK, Null, message.utf8());
-        }
-        if (result == NotFound) {
-            console.print (" --- NotFound");
-            return new SimpleResponse(NotFound, Null, message.utf8());
-        }
-        if (result == Conflict) {
-            console.print (" --- Conflict");
-            return new SimpleResponse(Conflict, Null, message.utf8());
-        }
-
-        console.print (" --- Error");
-        return new SimpleResponse(InternalServerError, Null, message.utf8());
-
-
+         return switch (result) {
+             case OK:       new SimpleResponse(OK);
+             case NotFound: new SimpleResponse(NotFound, Null, message.utf8());
+             case Conflict: new SimpleResponse(Conflict, Null, message.utf8());
+             case Error:    new SimpleResponse(InternalServerError, Null, message.utf8());
+         };
     }
 
     /**
